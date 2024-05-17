@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Install fcli
         run: |
-          curl -L https://github.com/fortify/fcli/releases/2.3.0/download/fcli-linux.tgz | tar xf fcli
+          curl -L https://github.com/fortify/fcli/releases/download/v2.3.0/fcli-linux.tgz | tar -xz fcli
           ./fcli --version
           
       - name: Run Debricked Scan
