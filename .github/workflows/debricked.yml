@@ -10,6 +10,11 @@ jobs:
       image: debricked/cli:latest-resolution-debian
 
     steps:
+      - name: Install fcli
+        run: |
+          curl -L https://github.com/fortify/fcli/releases/2.3.0/download/fcli-linux.tgz | tar -xz fcli
+          ./fcli --version
+          
       - name: Run Debricked Scan
         run: |
           debricked files find
@@ -17,7 +22,4 @@ jobs:
         env:
           DEBRICKED_TOKEN: ${{ secrets.DEBRICKED_TOKEN }}
 
-      - name: Install fcli
-        run: |
-          curl -L https://github.com/fortify/fcli/releases/2.3.0/download/fcli-linux.tgz | tar -xz fcli
-          ./fcli --version
+
