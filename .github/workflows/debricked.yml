@@ -17,7 +17,7 @@ jobs:
 
       - name: Import Debricked results into SSC
         run: |
-          fcli ssc artifact import-debricked --appversion=NewDebrickedImport:1.0.0 --repository=${{ github.repository }} --branch=${{ github.head_ref || github.ref_name }} -t=${{ secrets.DEBRICKED_TOKEN }}
+          ./fcli ssc artifact import-debricked --appversion=NewDebrickedImport:1.0.0 --repository=${{ github.repository }} --branch=${{ github.head_ref || github.ref_name }} -t=${{ secrets.DEBRICKED_TOKEN }}
           
       - name: Run Debricked Scan
         run: |
