@@ -12,6 +12,7 @@ jobs:
     steps:
       - name: Run Scan
         run: |
+          debricked files find
           debricked scan
         env:
           DEBRICKED_TOKEN: ${{ secrets.DEBRICKED_TOKEN }}
