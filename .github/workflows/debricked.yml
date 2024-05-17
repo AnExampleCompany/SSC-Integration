@@ -1,4 +1,4 @@
-name: Debricked scan
+name: Debricked scan & import into SSC
 
 on: [push]
 
@@ -10,9 +10,14 @@ jobs:
       image: debricked/cli:latest-resolution-debian
 
     steps:
-      - name: Run Scan
+      - name: Run Debricked Scan
         run: |
           debricked files find
           debricked scan
         env:
           DEBRICKED_TOKEN: ${{ secrets.DEBRICKED_TOKEN }}
+
+      - name: Install fcli
+        run: |
+          curl -L https://github.com/fortify/fcli/releases/2.3.0/download/fcli-linux.tgz | tar -xz fcli
+          ./fcli --version
