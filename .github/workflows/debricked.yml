@@ -14,6 +14,7 @@ jobs:
         run: |
           curl -L https://github.com/fortify/fcli/releases/download/v2.3.0/fcli-linux.tgz | tar -xz fcli
           ./fcli --version
+          ./fcli ssc session login
 
       - name: Import Debricked results into SSC
         run: |
