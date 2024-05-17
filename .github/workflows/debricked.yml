@@ -10,10 +10,12 @@ jobs:
       image: debricked/cli:latest-resolution-debian
 
     steps:
-      - name: Install fcli
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        
+      - name: Install fcli and log in
         run: |
           curl -L https://github.com/fortify/fcli/releases/download/v2.3.0/fcli-linux.tgz | tar -xz fcli
-          ./fcli --version
           ./fcli ssc session login
         env:
           FCLI_DEFAULT_SSC_USER: ${{ secrets.FCLI_DEFAULT_SSC_USER }}
@@ -21,10 +23,6 @@ jobs:
           FCLI_DEFAULT_SSC_CI_TOKEN: ${{ secrets.FCLI_DEFAULT_SSC_CI_TOKEN }}
           FCLI_DEFAULT_SSC_URL: ${{ secrets.FCLI_DEFAULT_SSC_URL }}
 
-      - name: Import Debricked results into SSC
-        run: |
-          ./fcli ssc artifact import-debricked --appversion=NewDebrickedImport:1.0.0 --repository=${{ github.repository }} --branch=${{ github.head_ref || github.ref_name }} -t=${{ secrets.DEBRICKED_TOKEN }}
-          
       - name: Run Debricked Scan
         run: |
           debricked files find
@@ -32,4 +30,7 @@ jobs:
         env:
           DEBRICKED_TOKEN: ${{ secrets.DEBRICKED_TOKEN }}
 
-
+      - name: Import Debricked results into SSC
+        run: |
+          ./fcli ssc artifact import-debricked --appversion=NewDebrickedImport:1.0.0 --repository=${{ github.repository }} --branch=${{ github.head_ref || github.ref_name }} -t=${{ secrets.DEBRICKED_TOKEN }}
+          
