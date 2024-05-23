@@ -10,9 +10,18 @@ jobs:
       image: debricked/cli:latest-resolution-debian
 
     steps:
+    # Running the Debricked scan
       - name: Checkout repository
         uses: actions/checkout@v3
-        
+
+      - name: Run Debricked Scan
+        run: |
+          debricked callgraph
+          debricked scan
+        env:
+          DEBRICKED_TOKEN: ${{ secrets.DEBRICKED_TOKEN }}
+
+    # Importing the scan results into SSC
       - name: Install fcli and log in
         run: |
           curl -L https://github.com/fortify/fcli/releases/download/v2.3.0/fcli-linux.tgz | tar -xz fcli
@@ -22,13 +31,6 @@ jobs:
           FCLI_DEFAULT_SSC_PASSWORD: ${{ secrets.FCLI_DEFAULT_SSC_PASSWORD }}
           FCLI_DEFAULT_SSC_CI_TOKEN: ${{ secrets.FCLI_DEFAULT_SSC_CI_TOKEN }}
           FCLI_DEFAULT_SSC_URL: ${{ secrets.FCLI_DEFAULT_SSC_URL }}
-
-      - name: Run Debricked Scan
-        run: |
-          debricked callgraph
-          debricked scan
-        env:
-          DEBRICKED_TOKEN: ${{ secrets.DEBRICKED_TOKEN }}
 
       - name: Import Debricked results into SSC
         run: |
