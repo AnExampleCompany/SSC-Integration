@@ -16,7 +16,6 @@ jobs:
 
       - name: Run Debricked Scan
         run: |
-          debricked callgraph
           debricked scan
         env:
           DEBRICKED_TOKEN: ${{ secrets.DEBRICKED_TOKEN }}
