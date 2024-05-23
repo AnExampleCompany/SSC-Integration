@@ -15,7 +15,6 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Run Debricked Scan
-        continue-on-error: true
         run: |
           debricked scan
         env:
@@ -23,6 +22,7 @@ jobs:
 
     # Importing the scan results into SSC
       - name: Install fcli and log in
+        if: success() || failure()
         run: |
           curl -L https://github.com/fortify/fcli/releases/download/v2.3.0/fcli-linux.tgz | tar -xz fcli
           ./fcli ssc session login
@@ -33,6 +33,7 @@ jobs:
           FCLI_DEFAULT_SSC_URL: ${{ secrets.FCLI_DEFAULT_SSC_URL }}
 
       - name: Import Debricked results into SSC
+        if: success() || failure()
         run: |
           ./fcli ssc artifact import-debricked --appversion=NewDebrickedImport:1.0.0 --repository=${{ github.repository }} --branch=${{ github.head_ref || github.ref_name }} -t=${{ secrets.DEBRICKED_TOKEN }}
           
