@@ -38,4 +38,4 @@ jobs:
           FCLI_DEFAULT_SSC_APPVERSION: 'NewDebrickedImport:1.0.0'
           FCLI_DEFAULT_SSC_REPOSITORY: ${{ github.repository }}
           FCLI_DEFAULT_SSC_BRANCH: ${{ github.head_ref || github.ref_name }}
-          FCLI_DEFAULT_SSC_DEBRICKED_ACCESS_TOKEN: ${{ secrets.DEBRICKED_TOKEN }}
+          FCLI_DEFAULT_SSC_ACCESSTOKEN: ${{ secrets.DEBRICKED_TOKEN }}
