@@ -33,9 +33,8 @@ jobs:
       - name: Import Debricked results into SSC
         if: success() || failure()
         run: |
-          ./fcli ssc artifact import-debricked
+          ./fcli ssc artifact import-debricked --appversion=NewDebrickedImport:1.0.0
         env:
-          FCLI_DEFAULT_SSC_APPVERSION: 'NewDebrickedImport:1.0.0'
           FCLI_DEFAULT_SSC_REPOSITORY: ${{ github.repository }}
           FCLI_DEFAULT_SSC_BRANCH: ${{ github.head_ref || github.ref_name }}
           FCLI_DEFAULT_SSC_DEBRICKED_ACCESS_TOKEN: ${{ secrets.DEBRICKED_TOKEN }}
